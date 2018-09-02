@@ -1,0 +1,7 @@
+﻿  matrix.cpp
+c:\users\wladbelsky\google drive\progs\c++\matrix\matrix\matrix.cpp(280): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\wladbelsky\google drive\progs\c++\matrix\matrix\matrix.cpp(314): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\wladbelsky\google drive\progs\c++\matrix\matrix\matrix.cpp(316): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\wladbelsky\google drive\progs\c++\matrix\matrix\matrix.cpp(323): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\wladbelsky\google drive\progs\c++\matrix\matrix\matrix.cpp(350): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  matrix.vcxproj -> C:\Users\wladbelsky\Google Drive\Progs\C++\matrix\Debug\matrix.exe
