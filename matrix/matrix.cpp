@@ -2,6 +2,7 @@
 #include "matrix.h"
 #include <cstdlib>
 #include <cmath>
+#include <stdexcept>
 
 using namespace std;
 
@@ -54,18 +55,36 @@ matrix::matrix(const matrix &x)
 			set(i,j) = x.get(i,j);
 }
 
-//operator overload
+matrix::matrix(int r, int c, float** arr)
+{
+	rows = r;
+	columns = c;
 
+	matx = new float* [rows];
+	for (int i = 0; i < rows; i++)
+		matx[i] = new float[columns];
+
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < columns; j++)
+			set(i, j) = arr[i][j];
+}
+
+//operator overload
 matrix matrix::operator+(const matrix &x)
 {
 	matrix tmp(rows, columns);
+	
 
 	if(x.rows == rows && x.columns == columns)
 		for(int i = 0; i < rows; i++)
 			for(int j = 0; j < columns; j++)
-				tmp.set(i,j) = get(i,j) + x.get(i,j);				
+				tmp.set(i,j) = get(i,j) + x.get(i,j);	
+	else
+		throw invalid_argument("incompatible size");
+
 	return tmp;
 }
+
 
 matrix matrix::operator+=(const matrix &x)
 {
@@ -78,6 +97,24 @@ matrix matrix::operator+=(const matrix &x)
 	return *this;
 }
 
+
+bool operator==(const matrix& x, const matrix& y)
+{
+
+	if (x.rows == y.rows && x.columns == y.columns)
+	{
+		for (int i = 0; i < y.rows; i++)
+			for (int j = 0; j < y.columns; j++)
+				if (!(y.get(i, j) == x.get(i, j)))
+					return false;
+	}
+	else
+		return false;
+
+	return true;
+}
+
+
 matrix matrix::operator-(const matrix &x)
 {
 	matrix tmp(rows, columns);
@@ -85,7 +122,9 @@ matrix matrix::operator-(const matrix &x)
 	if(x.rows == rows && x.columns == columns)
 		for(int i = 0; i < rows; i++)
 			for(int j = 0; j < columns; j++)
-				tmp.set(i,j) = get(i,j) - x.get(i,j);				
+				tmp.set(i,j) = get(i,j) - x.get(i,j);
+	else
+		throw runtime_error("incompatible size");
 
 	return tmp;
 }
@@ -149,6 +188,7 @@ matrix operator*(int num, const matrix &x)
 			tmp.set(i,j) = x.get(i,j) * num;
 	return tmp;
 }
+
 //float variant
 matrix operator*(float num, const matrix &x)
 {
@@ -227,7 +267,6 @@ ostream& operator<<(ostream &os, const matrix &x)
 }
 
 //setters&getters
-
 void matrix::set()
 {
 	for(int i = 0; i < rows; i++)
@@ -354,14 +393,6 @@ matrix matrix::algExt()
 
 matrix matrix::reversed()
 {
-	//matrix tmp(columns, rows);
-	/*for(int i = 0; i < rows; i++)
-		for(int j = 0; j < columns; j++)
-		{
-			matrix minor = transposed().getMinor(i,j);
-			tmp.set(i,j) = pow(-1, i + j) * minor.getDet();
-		}
-*/
 	matrix tmp = algExt();
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < columns; j++)

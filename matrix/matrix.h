@@ -12,6 +12,7 @@ public:
 	matrix(int,int);
 	~matrix();
 	matrix(const matrix &);
+	matrix(int, int, float**);
 
 	//operators overload
 	matrix operator+(const matrix &);
@@ -19,6 +20,7 @@ public:
 	matrix operator-(const matrix &);
 	matrix operator-=(const matrix &);
 	matrix operator=(const matrix &);
+
 
 	matrix operator*(const int &);		//int operators
 	matrix operator*=(const int &);
